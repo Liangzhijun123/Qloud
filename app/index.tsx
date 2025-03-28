@@ -106,12 +106,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 3 },
-    shadowRadius: 5,
-    elevation: 4,
-  },
+    boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)', // Equivalent to shadow styles
+  }
+  ,
   ctaText: {
     fontSize: 16,
     color: '#fff',
