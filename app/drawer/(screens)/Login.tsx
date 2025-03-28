@@ -22,13 +22,13 @@ const Login = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSignIn = async () => {
+    debugger;
     setIsSuccess(false);
 
-    // Hardcoded mock user account for testing purposes
     const mockUser = {
       email: "testuser@example.com",
       password: "TestPassword123",
-      token: "mockToken123456", // This is a dummy token for testing
+      token: "mockToken123456", 
     };
 
     if (!email || !password) {
@@ -36,25 +36,44 @@ const Login = () => {
       return;
     }
 
-    // Check if the entered credentials match the mock user
-    if (email === mockUser.email && password === mockUser.password) {
-      // Simulate successful login with the mock user
-      const userData = {
-        token: mockUser.token,
-      };
+    
 
-      Alert.alert("Success", "Logged in successfully with the temporary account!");
-      router.replace("/drawer/(tabs)/Home"); // Navigate to Home on successful login
-      setLoginError(false);
-    } else {
-      // If credentials don't match, proceed with real sign-in API call
+    try {
+      debugger;
+      const userData = await signIn(email, password); // Call API
+      console.log("User signed in:", userData);
+
+      Alert.alert("Success", "Logged in successfully!");
+      if (userData.token) {
+        router.replace("/drawer/(tabs)/Home"); // Navigate to Home on successful login
+        setLoginError(false);
+      } else {
+        setLoginError(true);
+      }
+    } catch (error) {
+      setLoginError(true);
+      Alert.alert("Error", "Login failed!");
+    }
+  };
+
+  const createAccount = async () => {
+    setIsSignUp(true);
+  }
+
+  const handleSignUp = async () => {
+    debugger;
+    // setIsSignUp(true); // Toggle to show sign-up fields
+    if (isSignUp) {
       try {
-        const userData = await signIn(email, password); // Call API
+        debugger;
+        const userData = await signUp(email, password, firstname, lastname); // Call API
         console.log("User signed in:", userData);
 
         Alert.alert("Success", "Logged in successfully!");
-        if (userData.token) {
-          router.replace("/drawer/(tabs)/Home"); // Navigate to Home on successful login
+        if (userData.status == "success") {
+          Alert.alert("Error", "User"+firstname+" created successfully Please Login in Now");
+          setIsSignUp(false)
+          setIsSuccess(true)
           setLoginError(false);
         } else {
           setLoginError(true);
@@ -63,46 +82,102 @@ const Login = () => {
         setLoginError(true);
         Alert.alert("Error", "Login failed!");
       }
+
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      Alert.alert("Error", "Please enter your email to reset password.");
+      return;
+    }
+
+    try {
+      await forgotPassword(email);
+      Alert.alert("Success", "Password reset link sent.");
+    } catch (error) {
+
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>App Logo</Text>
-      <Text style={styles.welcomeText}>{isSignUp ? "Sign Up" : "Login"}</Text>
-      <Text style={styles.subtitle}>Please enter your credentials below</Text>
+      <Text style={styles.logo}>QLOUD</Text>
+      <Text style={styles.welcomeText}>Welcome back!</Text>
+      <Text style={styles.subtitle}>We’re excited to see you again!</Text>
 
-      <Text style={styles.label}>Email</Text>
+      <Text style={styles.label}>Enter credentials to log in</Text>
+
+      {isSignUp && (
+        <View style={styles.signUpFields}>
+          <TextInput
+            style={styles.input}
+            placeholder="First Name"
+            value={firstname}
+            onChangeText={setFirstname}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Last Name"
+            value={lastname}
+            onChangeText={setLastname}
+          />
+        </View>
+      )}
+
       <TextInput
         style={styles.input}
+        placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        placeholder="Enter your email"
         keyboardType="email-address"
       />
 
-      <Text style={styles.label}>Password</Text>
       <TextInput
         style={styles.input}
+        placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        placeholder="Enter your password"
         secureTextEntry
       />
 
-      {loginError && (
-        <Text style={styles.errorText}>Invalid credentials, please try again.</Text>
-      )}
+      
+      {!setPassword  && <Text style={styles.errorText}>Password missing,please enter password to login</Text>}
+      {!setEmail  && <Text style={styles.errorText}> Email missing,please enter email to login</Text>}
 
-      <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-        <Text style={styles.signInButtonText}>Sign In</Text>
+      {loginError && <Text style={styles.errorText}>Login Failed</Text>}
+      {isSuccess  && <Text style={styles.successText}>User {firstname} added successfully , Please login now </Text>}
+
+      <TouchableOpacity onPress={handleForgotPassword}>
+        <Text style={styles.forgotPassword}>Forgot your password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
-        <Text style={styles.forgotPassword}>
-          {isSignUp ? "Already have an account? Login" : "Don't have an account? Sign Up"}
+      {!isSignUp && <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
+        <Text style={styles.signInButtonText}>Log In</Text>
+      </TouchableOpacity>}
+
+      {!isSignUp&&<Text style={styles.orText}>or</Text>}
+
+      {/* Toggle between "Create Account" and "Sign Up" */}
+      {isSignUp && <TouchableOpacity style={styles.signInButton} onPress={handleSignUp}>
+        <Text style={styles.signInButtonText}>
+          {"Sign Up"}
         </Text>
+      </TouchableOpacity>}
+      {!isSignUp && <TouchableOpacity style={styles.signInButton} onPress={createAccount}>
+        <Text style={styles.signInButtonText}>
+          {"Create Account"}
+        </Text>
+      </TouchableOpacity>}
+
+
+      {/* <TouchableOpacity style={styles.googleButton}>
+        <Text style={styles.googleText}>Continue With Google</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.facebookButton}>
+        <Text style={styles.socialText}>Continue With Facebook</Text>
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -144,6 +219,12 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
+    fontSize: 14,
+    alignSelf: "flex-start",
+    marginBottom: 10,
+  },
+  successText: {
+    color: "green",
     fontSize: 14,
     alignSelf: "flex-start",
     marginBottom: 10,

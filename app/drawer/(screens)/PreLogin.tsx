@@ -11,24 +11,24 @@ const PreLogin = ({ navigation }: { navigation: any }) => {
     {
       content: (
         <View style={styles.contentContainer}>
+          <Text style={styles.logo}>QLOUD</Text>
           <Image
             source={require("../../../assets/loginImage.png")}
             style={styles.image}
           />
-          <Text style={styles.logo}>QLOUD</Text>
         </View>
       ),
     },
     {
       content: (
         <View style={styles.contentContainer}>
+          <Text style={styles.text}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </Text>
           <Image
             source={require("../../../assets/prelogin1.png")}
             style={styles.image}
           />
-          <Text style={styles.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.joinButton}
@@ -49,13 +49,13 @@ const PreLogin = ({ navigation }: { navigation: any }) => {
     {
       content: (
         <View style={styles.contentContainer}>
+          <Text style={styles.text}>
+            Suspendisse varius enim in eros elementum tristique.
+          </Text>
           <Image
             source={require("../../../assets/prelogin2.png")}
             style={styles.image}
           />
-          <Text style={styles.text}>
-            Suspendisse varius enim in eros elementum tristique.
-          </Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.joinButton}
@@ -76,13 +76,13 @@ const PreLogin = ({ navigation }: { navigation: any }) => {
     {
       content: (
         <View style={styles.contentContainer}>
+          <Text style={styles.text}>
+            Curabitur gravida arcu ac tortor dignissim convallis.
+          </Text>
           <Image
             source={require("../../../assets/prelogin3.png")}
             style={styles.image}
           />
-          <Text style={styles.text}>
-            Curabitur gravida arcu ac tortor dignissim convallis.
-          </Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.joinButton}
@@ -119,7 +119,6 @@ const PreLogin = ({ navigation }: { navigation: any }) => {
 };
 
 const screenWidth = Dimensions.get("window").width;
-const aspectRatio = 16 / 9;
 
 const styles = StyleSheet.create({
   container: {
@@ -134,6 +133,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginBottom: 20,
     position: "relative",
+    paddingTop: 50, // Added padding to move everything below the top
   },
   image: {
     width: screenWidth,
@@ -145,20 +145,27 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: "bold",
     color: "#000",
-    paddingTop: 150,
-    marginBottom: 20,
     zIndex: 2,
     position: "absolute",
+    top: 0, // Positions the logo at the top of the container
+    textAlign: "center",
   },
   text: {
     fontSize: 18,
     textAlign: "center",
-    marginBottom: 30,
     color: "#333",
+    position: "absolute",
+    paddingTop: 50,
+    zIndex: 2,
+    width: 383,
   },
   buttonContainer: {
     flexDirection: "row",
     gap: 10,
+    marginTop: 30,
+    position: "absolute",
+    paddingTop: 400,
+    zIndex: 3,
   },
   joinButton: {
     backgroundColor: "#000",
@@ -178,7 +185,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 300,
     position: "absolute",
-    
   },
   dot: {
     width: 12,
