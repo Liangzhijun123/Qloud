@@ -48,21 +48,21 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.menuContainer}>
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Home")}
+          onPress={() => navigation.push("/drawer/(tabs)/Home")}
         >
           <MaterialIcons name="home" size={20} color="white" />
           <Text style={styles.menuText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Files")}
+          onPress={() => navigation.push("/drawer/(screens)/Files")}
         >
           <MaterialIcons name="folder" size={20} color="white" />
           <Text style={styles.menuText}>Files</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Login")}
+          onPress={() => navigation.push("/drawer/(screens)/Login")}
         >
           <MaterialIcons name="calendar-today" size={20} color="white" />
           <Text style={styles.menuText}>Calendar</Text>
@@ -70,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Mentor")}
+          onPress={() => navigation.push("/drawer/(screens)/Mentor")}
         >
           <FontAwesome5 name="chalkboard-teacher" size={20} color="white" />
           <Text style={styles.menuText}>Mentor</Text>
@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Team")}
+          onPress={() => navigation.push("/drawer/(screens)/Team")}
         >
           <MaterialIcons name="group" size={20} color="white" />
           <Text style={styles.menuText}>Team</Text>
@@ -86,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Links")}
+          onPress={() => navigation.push("/drawer/(screens)/Links")}
         >
           <Entypo name="link" size={20} color="white" />
           <Text style={styles.menuText}>Links</Text>
@@ -94,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Speeches")}
+          onPress={() => navigation.push("/drawer/(screens)/Speeches")}
         >
           <Feather name="mic" size={20} color="white" />
           <Text style={styles.menuText}>Speeches</Text>
@@ -106,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
         {/* Footer Items */}
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Settings")}
+          onPress={() => navigation.push("/drawer/(screens)/Settings")}
         >
           <MaterialIcons name="settings" size={20} color="white" />
           <Text style={styles.menuText}>Settings</Text>
@@ -114,7 +114,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Help")}
+          onPress={() => navigation.push("/drawer/(screens)/Help")}
         >
           <MaterialIcons name="help-outline" size={20} color="white" />
           <Text style={styles.menuText}>Help Center</Text>
@@ -122,7 +122,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/Contact")}
+          onPress={() => navigation.push("/drawer/(screens)/Contact")}
         >
           <MaterialIcons name="call" size={20} color="white" />
           <Text style={styles.menuText}>Contact</Text>
@@ -130,7 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.menuItem}
-          onPress={() => navigation.push("/SocialMedia")}
+          onPress={() => navigation.push("/drawer/(screens)/SocialMedia")}
         >
           <Entypo name="network" size={20} color="white" />
           <Text style={styles.menuText}>Social Media</Text>
